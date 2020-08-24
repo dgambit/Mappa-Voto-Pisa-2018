@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<html>
+<head>    
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+h1{
+    font-family: "Impact", Charcoal, sans-serif;
+}
+h2{
+    font-family: "Impact", Charcoal, sans-serif;
+}
+h3{
+    font-family: "Impact", Charcoal, sans-serif;
+}
+p{
+    font-family: "Impact", Charcoal, sans-serif;
+}
+</style>
+
+
+<link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+
+        
+</head>
+
+<body style="background-color:black;"  link="#ff3300" vlink="#00ff33" alink="#0033ff">    
+    <font color="white">
+<!--
+<p align="center">Le visualizzazioni presenti in questa pagina rappresentano un primo lavoro di analisi sui dati delle elezioni amministrative tenutesi nel 2018 (domenica 10 giugno) e nel 2013 (26-27 maggio). Nei menu a tendina sottostanti è possibile scegliere tra due diverse tipologie di mappa, per una data lista: <strong>voti percentuali in un determinato anno</strong> o <strong>differenza di percentuale</strong> tra le ultime elezioni e quelle scorse. La scala per il voto percentuale va da 0% a 60% (poichè nessuna lista, in nessuna sezione, ha mai preso più del 60), mentre le scala della differenza di percentuale va, per motivi simili, da -60% a +60% (una lista con +30% ha quindi guadagnato, in quella sezione, il 30% di percentuale dal 2013 al 2018, calcolando il totale sui voti validi per le liste in quella determinata sezione.<br>
+I dati provengono dal sito del Comune di Pisa, dove sono disponibili i pdf della lista delle sezioni e dei risultati di entrambe le consultazioni(<a href="http://www.comune.pisa.it/it/progetto-scheda/9618/Voti-e-Preferenze.html">qui</a> e <a href="http://www.comune.pisa.it/it/ufficio/23470/Elezioni-Amministrative-Pisa-2018.html">qui</a>).<br>
+Il grafico sotto la mappa rappresenta in maniera differente gli stessi risultati.<br>
+Prossimamente verranno implementate altre funzionalità, come le visualizzaizoni per altre liste e per i dati delle coalizioni.</p>
+-->
+
+<table style="width:50%" align="center">
+	<th>
+	<div class="styled-select blue semi-square" onchange="change()">
+		<select id = "sel1">	
+			<option value="perc13">Voti 2013</option>
+			<option value="perc18">Voti 2018</option>
+			<option value="delta">Variazione 2018-2013</option>
+		</select>
+	</div>
+</th>
+	<th>
+	<div class="styled-select blue semi-square" onchange="change()">
+		<select id = "sel2">
+			<option value="pd">Partito Democratico</option>
+			<option value="lega">Lega</option>
+			<option value="m5s">Movimento 5 Stelle</option>
+			<option value="ucic">Una Città in Comune</option>
+		</select>
+	</div>
+	</th> 
+    	<th>
+
+	</th>
+
+</table>
+
+
+<table style="width:50%" align="center">
+<tr>
+	<th style="min-width:75%">
+    		<object id='mappa' data="" width="900px" height="600px">
+	</th>
+	<th style="min-width:5%">
+	</th>
+	<th style="min-width:20%">
+		<img id="scala" align="left" src="trasp.png" height="600px" width="130px"/>
+	</th>
+
+</tr>
+<tr>
+	<td style="min-width:75%">
+		<object id='graph' data="" width="900px" height="600px">
+	</td>
+	<td style="min-width:5%">
+	</td>
+	<td style="min-width:20%">
+		
+	</th>
+</table>
+
+
+
+
+<script>
+
+
+function change()
+{
+
+var x = document.getElementById("sel1").value;
+var y = document.getElementById("sel2").value;
+
+pag= "pages/"+x+"_"+y+".html";
+
+var object = document.getElementById("mappa");
+object.setAttribute('data', pag);
+var clone = object.cloneNode(true);
+var parent = object.parentNode;
+parent.removeChild(object);
+parent.appendChild(clone );
+
+graphpag= "pages/"+"graph_"+x+"_"+y+".html";
+
+var object = document.getElementById("graph");
+object.setAttribute('data', graphpag);
+var clone = object.cloneNode(true);
+var parent = object.parentNode;
+parent.removeChild(object);
+parent.appendChild(clone );
+
+
+
+var object = document.getElementById("scala");
+
+if(document.getElementById("sel1").value == "delta")
+{
+
+	var object = document.getElementById("scala");
+	object.setAttribute('src', "delta.png");
+
+	console.log('delta');
+	var clone = object.cloneNode(true);
+	var parent = object.parentNode;
+
+	parent.removeChild(object );	
+	parent.appendChild(clone );
+}
+else
+{
+
+
+	var object = document.getElementById("scala");
+	object.setAttribute('src', "perc.png");
+
+
+	console.log(document.getElementById("sel1").value);
+
+	var clone = object.cloneNode(true);
+	var parent = object.parentNode;
+
+	parent.removeChild(object );
+	parent.appendChild(clone );
+
+}
+
+
+}
+
+change();
+</script>
+
+</font>
+</body>
+</html>
+
+
